@@ -14,3 +14,8 @@ Saya membuat nama fungsi yang singkat namun deskriptif, misal untuk mendapatkan 
 
 walau begitu, saya menyadari ada beberapa kekurangan dari kode yang sudah ditulis, misal belum adanya validasi ketika user memberikan input yang salah pada form produk, dimana hal ini bisa diimprove dengan menambahkan validator @NotNull, @Min(0), etc. Selain itu, pada method findById pun bisa saja ID produk tidak ditemukan, yang mana ini bisa diimprove dengan menambahkan try exception. Sehingga secara keseluruhan, kode yang ditulis belum benar-benar secured dan clean sehingga masih bisa diperbaiki lagi.
 
+# Exercise 2
+1. Setelah menulis unit test, saya merasa saya sudah membuat kode menjadi lebih aman dari error dan bug yang mungkin terjadi. Menurut saya, unit test sendiri harus dibuat sebanyak mungkin untuk tiap class sehingga dapat mengcover edge-case, hal ini bisa diukur melalui code coverage ketika sudah mencapai 100%. Walau begitu, belum tentu code coverage 100% artinya code aman dari bug atau error, karena code coverage hanya menyatakan bahwa code telah dieksekusi dari semua test yang dibuat oleh developer, tidak menjamin logic, bug, serta edge case lain yang mungkin belum di test.
+
+
+2. Menurut saya, dengan membuat test baru dengan kode yang mirip-mirip kurang mencerminkan prinsip clean code, karena kode menjadi redundan dan terlalu banyak. Sehingga, hal ini dapat mengurangi kemampuan code agar reusable. Untuk mengimprove hal tersebut, developer dapat memindahkan setup code ke helper class agar dapat digunakan berulang kali. Dengan begitu, kode jadi tidak terlalu redundan, lebih mudah dibaca dan dapat digunakan kembali.
