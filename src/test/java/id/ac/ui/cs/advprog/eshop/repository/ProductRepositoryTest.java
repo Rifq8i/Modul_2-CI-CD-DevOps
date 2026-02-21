@@ -125,4 +125,16 @@ class ProductRepositoryTest {
         assertTrue(productIterator.hasNext());
         assertEquals(product.getProductName(), productIterator.next().getProductName());
     }
+
+    @Test
+    void testFindByIdNotFound() {
+        Product product = new Product();
+        product.setProductId("ID-1");
+        product.setProductName("Barang A");
+        productRepository.create(product);
+
+        Product result = productRepository.findById("ID-TIDAK-ADA");
+
+        assertNull(result);
+    }
 }
