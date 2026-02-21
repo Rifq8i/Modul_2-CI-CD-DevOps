@@ -2,6 +2,7 @@ package id.ac.ui.cs.advprog.eshop.controller;
 
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.service.ProductService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,47 +14,50 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
+    public ProductController() {
+        // default constructor
+        super();
+    }
+
     @Autowired
     private ProductService service;
 
     @GetMapping("/create")
-    public String createProductPage(Model model) {
-        Product product = new Product();
+    public String createProductPage(final Model model) {
+        final Product product = new Product();
         model.addAttribute("product", product);
         return "createProduct";
     }
 
     @PostMapping("/create")
-    public String createProductPost(@ModelAttribute Product product, Model model) {
+    public String createProductPost(@ModelAttribute final Product product, final Model model) {
         service.create(product);
         return "redirect:list";
     }
 
     @GetMapping("/list")
-    public String productListPage(Model model) {
-        List<Product> allProducts = service.findAll();
+    public String productListPage(final Model model) {
+        final List<Product> allProducts = service.findAll();
         model.addAttribute("products", allProducts);
         return "productList";
     }
 
     @GetMapping("/edit/{productId}")
-    public String editProductPage(@PathVariable String productId, Model model) {
-        Product product = service.findById(productId);
+    public String editProductPage(@PathVariable final String productId, final Model model) {
+        final Product product = service.findById(productId);
         model.addAttribute("product", product);
         return "editProduct";
     }
 
     @PostMapping("/edit")
-    public String editProductPost(@ModelAttribute Product product) {
+    public String editProductPost(@ModelAttribute final Product product) {
         service.edit(product);
         return "redirect:list";
     }
 
     @GetMapping("/delete/{productId}")
-    public String deleteProduct(@PathVariable String productId) {
+    public String deleteProduct(@PathVariable final String productId) {
         service.delete(productId);
         return "redirect:../list";
     }
-
-
 }

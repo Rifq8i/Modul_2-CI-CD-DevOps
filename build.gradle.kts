@@ -1,6 +1,7 @@
 plugins {
     java
     jacoco
+    pmd
     id("org.springframework.boot") version "4.0.2"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -25,9 +26,6 @@ configurations {
     }
 }
 
-
-
-
 repositories {
     mavenCentral()
 }
@@ -45,6 +43,11 @@ dependencies {
     testImplementation("org.seleniumhq.selenium:selenium-java:$seleniumJavaVersion")
     testImplementation("io.github.bonigarcia:selenium-jupiter:$seleniumJupiterVersion")
     testImplementation("io.github.bonigarcia:webdrivermanager:$webdrivermanagerVersion")
+}
+
+pmd {
+    toolVersion = "7.0.0-rc4"
+    isIgnoreFailures = true
 }
 
 tasks.register<Test>("functionalTest") {
