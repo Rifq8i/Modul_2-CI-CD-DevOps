@@ -32,7 +32,7 @@ public class ProductController {
     @PostMapping("/create")
     public String createProductPost(@ModelAttribute final Product product, final Model model) {
         service.create(product);
-        return "redirect:list";
+        return "redirect:/product/list";
     }
 
     @GetMapping("/list")
@@ -52,7 +52,7 @@ public class ProductController {
     @PostMapping("/edit")
     public String editProductPost(@ModelAttribute final Product product) {
         service.edit(product);
-        return "redirect:list";
+        return "redirect:/product/list";
     }
 
     @GetMapping("/delete/{productId}")
