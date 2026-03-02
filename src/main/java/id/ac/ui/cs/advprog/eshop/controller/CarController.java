@@ -6,13 +6,14 @@ import id.ac.ui.cs.advprog.eshop.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/car")
-public class CarController extends ProductController{
+public class CarController{
 
     @Autowired
     private CarService carService;
@@ -25,12 +26,18 @@ public class CarController extends ProductController{
     }
 
     @PostMapping("/createCar")
-    public String createCarPost(@ModelAttribute Car car, Model model) {
+    public String createCarPost(@ModelAttribute Car car, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors() || car.getCarQuantity() == null) {
+            if (car.getCarQuantity() == null) {
+                model.addAttribute("error", "Quantity harus diisi angka!");
+            }
+            return "createCar";
+        }
         carService.create(car);
-        return "redirect:listCar";
+        return "redirect:/car/list";
     }
 
-    @GetMapping("/listCar")
+    @GetMapping("/list")
     public String carListPage(Model model) {
         List<Car> allCars = carService.findAll();
         model.addAttribute("cars", allCars);
@@ -45,15 +52,22 @@ public class CarController extends ProductController{
     }
 
     @PostMapping("/editCar")
-    public String editCarPost(@ModelAttribute Car car, Model model) {
-        System.out.println(car.getCarId());
+    public String editCarPost(@ModelAttribute Car car, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors() || car.getCarQuantity() == null) {
+            if (car.getCarQuantity() == null) {
+                model.addAttribute("error", "Quantity tidak boleh kosong saat edit!");
+            }
+            model.addAttribute("car", car);
+            return "editCar";
+        }
+
         carService.update(car.getCarId(), car);
-        return "redirect:listCar";
+        return "redirect:/car/list";
     }
 
     @PostMapping("/deleteCar")
     public String deleteCar(@RequestParam("carId") String carId) {
         carService.deleteCarById(carId);
-        return "redirect:listCar";
+        return "redirect:/car/list";
     }
 }

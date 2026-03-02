@@ -3,23 +3,18 @@ package id.ac.ui.cs.advprog.eshop.repository;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
 class ProductRepositoryTest {
 
-    @InjectMocks
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @BeforeEach
     void setUp() {
+        productRepository = new InMemoryProductRepository();
     }
 
     @Test
@@ -70,18 +65,20 @@ class ProductRepositoryTest {
     @Test
     void testEditSuccess() {
         Product product = new Product();
+        product.setProductId("ID-123"); // Beri ID eksplisit untuk test
         product.setProductName("Barang A");
         product.setProductQuantity(10);
         productRepository.create(product);
 
         Product updatedProduct = new Product();
-        updatedProduct.setProductId(product.getProductId());
+        updatedProduct.setProductId("ID-123");
         updatedProduct.setProductName("Barang B");
         updatedProduct.setProductQuantity(20);
 
         productRepository.edit(updatedProduct);
 
-        Product result = productRepository.findById(product.getProductId());
+        Product result = productRepository.findById("ID-123");
+        assertNotNull(result);
         assertEquals("Barang B", result.getProductName());
         assertEquals(20, result.getProductQuantity());
     }
@@ -104,10 +101,11 @@ class ProductRepositoryTest {
     @Test
     void testDeleteSuccess() {
         Product product = new Product();
+        product.setProductId("ID-Hapus");
         product.setProductName("Barang Akan Dihapus");
         productRepository.create(product);
 
-        productRepository.delete(product.getProductId());
+        productRepository.delete("ID-Hapus");
 
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
@@ -116,6 +114,7 @@ class ProductRepositoryTest {
     @Test
     void testDeleteNotFound() {
         Product product = new Product();
+        product.setProductId("ID-Tetap");
         product.setProductName("Barang Tetap Ada");
         productRepository.create(product);
 

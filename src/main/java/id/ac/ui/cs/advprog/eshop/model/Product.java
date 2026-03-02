@@ -8,7 +8,7 @@ import lombok.Setter;
 public class Product {
     private String productId;
     private String productName;
-    private int productQuantity;
+    private Integer productQuantity;
 
     public Product() {
         this.productId = UUID.randomUUID().toString();
@@ -30,7 +30,7 @@ public class Product {
         this.productName = productName;
     }
 
-    public int getProductQuantity() {
+    public Integer getProductQuantity() {
         return productQuantity;
     }
 

@@ -6,6 +6,7 @@ import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,11 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public String createProductPost(@ModelAttribute Product product, Model model) {
+    public String createProductPost(@ModelAttribute Product product, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors() || product.getProductQuantity() == null) {
+            model.addAttribute("error", "Quantity harus diisi angka!");
+            return "createProduct";
+        }
         service.create(product);
         return "redirect:/product/list";
     }
@@ -45,7 +50,10 @@ public class ProductController {
     }
 
     @PostMapping("/edit")
-    public String editProductPost(@ModelAttribute Product product) {
+    public String editProductPost(@ModelAttribute Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors() || product.getProductQuantity() == null) {
+            return "editProduct";
+        }
         service.edit(product);
         return "redirect:/product/list";
     }
