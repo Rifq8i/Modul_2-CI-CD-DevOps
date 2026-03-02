@@ -18,14 +18,9 @@ class ProductServiceImplTest {
     private ProductRepository repository;
 
     @BeforeEach
-    void setUp() throws Exception {
-        service = new ProductServiceImpl();
+    void setUp() {
         repository = mock(ProductRepository.class);
-
-        // inject mock repo into private field
-        Field repoField = ProductServiceImpl.class.getDeclaredField("productRepository");
-        repoField.setAccessible(true);
-        repoField.set(service, repository);
+        service = new ProductServiceImpl(repository);
     }
 
     @Test

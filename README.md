@@ -1,3 +1,34 @@
+# Exercse 3
+1. **Explain what principles you apply to your project!**
+    a. **Single Responsibility Principle**   
+    Prinsip pertama yang dipenuhi adalah single responsibility principle, karena disini tanggung jawab yang di-manage oleh tiap class sudah cukup independen dan rapih. Misalnya, controller seperti ProductController ataupun HomePageController menghandle request dan view nya, service menghandle logic, serta repository menghandle penyimpanan data. Kode yang diberikan modul sudah mendukung prinsip ini, hanya perlu perbaikan minor pada desain inheritance.   
+   </br>
+    b. **Open Closed Principle**  
+    Prinsip kedua yang dipenuhi adalah open-closed principle. Walaupun begitu, agar prinsip ini dipenuhi, kode yang diberikan modul harus dimodifikasi. Pada prinsip ini, kode harusnya terbuka untuk ditambah fitur baru, namun tertutup untuk modifikasi sehingga tidak perlu mengubah kode lama. Pada code module, CarServiceImpl dan ProductServiceImpl bergantung langsung ke class Repository, sehingga apabila kita ingin mengganti kode penyimpanan data, kita harus mengubah lagi code di CarServiceImpl maupun ProductServceImpl. Sehingga untuk mengatasi masalah tersebut, saya mengubah repository menjadi interface, lalu  menambahkan 2 kelas baru yang berisi kode-kode implementasi repository, sehingga kedua kode ini tinggal mengimplement product repository. Dengan begini, apabila kita ingin mengubah cara penyimpanan data pada code, kita tidak perlu lagi mengubah logika di service.
+   </br>  
+    c. **Liskov Substitution Principle**  
+    Prinsip ketiga yang dipenuhi Liskov substitution principle. Walaupun begitu, perlu ada modifikasi dari kode terlebih dahulu dari kode yang diberikan modul agar prinsip ini terpenuhi. Pada code module, terlihat bahwa CarController meng-extend productController, padahal CarController bukanlah subtype dari ProductController, sehingga ini melanggar liskov substitution principle. Untuk mengatasi ini, saya menghapus extend tersebut, sehingga tidak ada hubungan antara CarController dan ProductController.  
+    </br>  
+    d. **Interface Segregation Principle**  
+    Prinsip keempat yang dipenuhi adalah Interface Segregation Principle. Prinsip ini menyatakan bahwa interface harus dibuat spesifik untuk kebutuhan masing-masing entitas, sehiingga tidak ada interface yang tidak relevan. Pada code, sudah terlihat bahwa CarService dan ProductService hanya berisi method-method yang relevan untuk kebutuhan mereka, dan tidak ada method redundan dan yang tidak digunakan.  
+    </br>
+    </br>
+    e. **Depedency Inversion Principle**  
+    Prinsip kelima yang dipenuhi adalah Depedency Inversion principle. Walaupun begitu, perlu ada modifikas kode terlebih dahulu dari kode yang diberikan modul agar prinsip terpenuhi. Saya memodifikasi repository menjadi interface, serta membuat class baru yang mengimplement repository tersebut. Selain itu, saya juga mengganti field injection @Autowired menjadii constructor injection dengan field final untuk best practice. Sehingga, services tidak lagi bergantung pada concrete class, melainkan pada abstraksi repository.
+    </br>
+    </br>
+    Sehingga, kelima prinsip SOLID berhasil dipenuhi. Selain itu ada beberapa perubahan kode minor agar lebih memenuhi prinsip maintainability, seperti validasi pada field agar tidak menghasilkan error, serta penulisan yang lebih rapih.  
+   
+
+2. **Explain the advantages of applying SOLID principles to your project with examples.**   
+    Salah satu manfaat dari menerapkan SOLID principle, misal pada Open-Closed principle, apabiila nanti kita ingin mengganti metode penyimpanan data, misal ke database, kita cukup membuat class baru yang mengimplement interface repositorynya. Selain itu, msial pada penerapan Liskov substitution principle, dengan menghapus inheritance yang tidak relevan seperti pada Product, kita menghindari bug yang mungkin muncul secara tidak terduga. Manfaat lkain yang bisa didapat juga dari penerapan single responsibility & depedency inversion princple adlaah kita membuat code yang lebih rapih dan memudahkan kita dalam membuat test nantinya.
+
+
+3. **Explain the disadvantages of not applying SOLID principles to your project with examples.**   
+Tanpa menerapkan prinsip SOLID, kode akan menjad lebih tidak rapih dan menyulitkan kita saat ingin mengembangkan codenya kembali. Misal apabila kita tidak menerapkan Open-Closed & Depedency Inversion principle tadi, setiap kali ada perubahan pada cara data diakses di repository, kita harus juga mengubah code di service. Selain itu, apabila kiita tadi tidak mengatasi carController yang me-extend productControlle sehingga liskov substitutiion principle tidak dipenuhi, bisa saja saat program berjalan ada bug muncul yang dsebabkan oleh relasi tidak valid ini. 
+
+
+
 # Exercise 2
 1. **List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.**
 

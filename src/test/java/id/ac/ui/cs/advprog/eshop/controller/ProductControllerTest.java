@@ -5,6 +5,7 @@ import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -43,11 +44,15 @@ class ProductControllerTest {
     @Test
     void createProductPost_shouldCallService_andRedirect() {
         Product p = new Product();
+        p.setProductQuantity(10);
 
-        String view = controller.createProductPost(p, model);
+        BindingResult bindingResult = mock(BindingResult.class);
+        when(bindingResult.hasErrors()).thenReturn(false);
+
+        String view = controller.createProductPost(p, bindingResult, model);
 
         verify(service).create(p);
-        assertEquals("redirect:/product/list", view);
+        assertEquals("redirect:/product/list", view);;
     }
 
     @Test
@@ -76,8 +81,12 @@ class ProductControllerTest {
     @Test
     void editProductPost_shouldCallServiceEdit_andRedirect() {
         Product p = new Product();
+        p.setProductQuantity(10);
 
-        String view = controller.editProductPost(p);
+        BindingResult bindingResult = mock(BindingResult.class);
+        when(bindingResult.hasErrors()).thenReturn(false);
+
+        String view = controller.editProductPost(p, bindingResult);
 
         verify(service).edit(p);
         assertEquals("redirect:/product/list", view);

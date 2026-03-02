@@ -9,6 +9,13 @@ public class Car {
     private String carId;
     private String carName;
     private String carColor;
-    private int carQuantity;
+    private Integer carQuantity;
+
+    public Integer getCarQuantity() {
+        return carQuantity;
+    }
+    public void setCarQuantity(Integer carQuantity) {
+        this.carQuantity = carQuantity;
+    }
 
 }

@@ -18,6 +18,7 @@
         <div class="form-group">
             <label for="quantityInput">Quantity</label>
             <input th:field="*{productQuantity}" type="number" class="form-control mb-4 col-4" id="quantityInput">
+            <div th:if="${error}" class="text-danger small mt-n3 mb-3" th:text="${error}"></div>
         </div>
         <button type="submit" class="btn btn-primary">edit</button>
     </form>
