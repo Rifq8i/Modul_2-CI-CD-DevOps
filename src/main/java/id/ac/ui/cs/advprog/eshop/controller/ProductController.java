@@ -53,6 +53,6 @@ public class ProductController {
     @PostMapping("/delete")
     public String deleteProduct(@RequestParam("productId") String productId) {
         service.delete(productId);
-        return "redirect:../list";
+        return "redirect:/product/list";
     }
 }
