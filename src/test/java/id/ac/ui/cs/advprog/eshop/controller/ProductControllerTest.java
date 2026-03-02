@@ -88,6 +88,6 @@ class ProductControllerTest {
         String view = controller.deleteProduct("P-1");
 
         verify(service).delete("P-1");
-        assertEquals("redirect:../list", view);
+        assertEquals("redirect:/product/list", view);
     }
 }
