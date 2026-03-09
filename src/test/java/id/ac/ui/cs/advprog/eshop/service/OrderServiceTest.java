@@ -68,15 +68,15 @@ class OrderServiceTest {
     @Test
     void testUpdateStatus() {
         Order order = orders.get(1);
-        Order newOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(), OrderStatus.SUCCESS.getValue());
+        Order newOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(), enums.OrderStatus.SUCCESS.getValue());
 
         doReturn(order).when(orderRepository).findById(order.getId());
         doReturn(newOrder).when(orderRepository).save(any(Order.class));
 
-        Order result = orderService.updateStatus(order.getId(), OrderStatus.SUCCESS.getValue());
+        Order result = orderService.updateStatus(order.getId(), enums.OrderStatus.SUCCESS.getValue());
 
         assertEquals(order.getId(), result.getId());
-        assertEquals(OrderStatus.SUCCESS.getValue(), result.getStatus());
+        assertEquals(enums.OrderStatus.SUCCESS.getValue(), result.getStatus());
         verify(orderRepository, times(1)).save(any(Order.class));
     }
 
@@ -96,7 +96,7 @@ class OrderServiceTest {
         doReturn(null).when(orderRepository).findById("zczc");
 
         assertThrows(NoSuchElementException.class,
-                () -> orderService.updateStatus("zczc", OrderStatus.SUCCESS.getValue()));
+                () -> orderService.updateStatus("zczc", enums.OrderStatus.SUCCESS.getValue()));
 
         verify(orderRepository, times(0)).save(any(Order.class));
     }
