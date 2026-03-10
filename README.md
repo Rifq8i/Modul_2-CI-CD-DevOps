@@ -1,3 +1,42 @@
+# Exercise 4
+1. **Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best
+   Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this
+   TDD flow is useful enough for you or not. If not, explain things that you need to do next time
+   you make more tests.**   
+    Setelah mengerjakan projek dengan approach TDD, saya merasa bahwa approach TDD cukup useful dalam proses development. Hal ini karena TDD memaksa kita untuk memikirkan terlebih dahulu output apa yang akan dihasilkan oleh masing-masing fungsi. Sehingga, hal ini dapat membuat proses development menjadi lebih terencana dan terstruktur kedepannya. Namun, apabila mengacu pada Percival (2017) di modul, ada 3 area yg dapat kita gunakan untuk mengevaluasi hal tersebut.  
+a. **Correctness**  
+Dari segi correctness, pertanyaannya adalah "Do I have enough functional tests to reassure myself that my application really works from the point of view of the user?" Menurut saya pada projek ini saya baru terimplementasi setengah, karena saya belum membuat functional test untuk memastikan fitur bekerja dengan baik secara end-to-end.  
+<br>b. **Maintainability**  
+Dari segi maintiainability, pertanyaannya adalah "Are my tests giving me the confidence to refactor my code, fearlessly and frequently?", menurut saya ini terimplementasi dengan baik. karena dengan adanya test, saya bisa menjalankan test tersebut terlebih dahulu, sebelum beranjak ke fitur laiin untuk memastikan ia tetap valid. Test juga membantu saya untuk menemukan kode yg harus di refactor saat ada kesalahan.  
+<br>**c. Productive workflow**  
+Dari segi productive workflow, "Are my feedback cycles as fast as I would like?" menurut saya projek ini berhasil mengimplementasi hal tersebut. Karena dengan penggunakan mockito, kita bisa run test spesifik yg kita mau, sehingga waktu running test pun tetap efisien.  
+<br>Maka kesimpulannya, walaupun saya merasa approach TDD tadi sudah cukup useful, berdasarkan prinsip dari Percival, masih ada beberapa area improvement yg dapat dilakukan, khususnya pada bagian correctness. Selanjutnya saya akan membuat setidaknya test yg bisa mengecek functional dari fitur2 yg terintegrasi secara end-to-end.
+
+2. **You have created unit tests in Tutorial. Now reflect whether your tests have successfully
+   followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you
+   create more tests.**
+   berdasaarkan prinsip F.I.R.S.T:  
+   **a. Fast**  
+   Prinsip ini terpenuhi karena test menggunkanan mockito, sehingga test cepat dijalankan   
+    <br>
+   **b. Independent**  
+   Prinsip ini secara garis besar terpenuhi karena tiap test method meng-setup data nya sendiri dan tidak rely ke method lain. Namun, pada paymentRepositoryTest, method testSaveUpdateExistingPayment secara implisit bergantung ke save pertama yg dilakukan.  
+   <br>c. **Repeatable**  
+   Prinsip ini terpenuhi karena test tidak rely ke sistem eksternal atau database tertentu. Sehingga, hasil test akan terus sama setiap kali dijalankan.
+    <br><br>
+   d. **Self Validating**  
+   Prinsip ini terpenuhi karena setiap test menggunakan assertEquals Junit sehingga pengecekan pass atau fail tidak manual.
+    <br><br>
+   e. **Thorough**  
+   Prinsip ini belum sepenuhnya terpenuhi karena ada beberapa edge case yg mungkin belum di cover, misal apabila map paymentData benar-benar kosong. Sehingga selanjutnya, test terutama terkait null input & empty collections harus lebih diperhatikan.  
+   <br>Sehingga kesimpulannya, prinsip FIRST hampir terpenuhi, namun ada beberapa area improvement terutama pada prinsip independent dan juga prinsip thorough.
+
+
+
+
+
+
+
 # Exercse 3
 1. **Explain what principles you apply to your project!**
     a. **Single Responsibility Principle**   
